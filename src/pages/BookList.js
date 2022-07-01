@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { BookListItem } from "../components/BookListItem";
 import Footer from "../components/Footer";
 import SideMenu from "../components/SideMenu";
-import TopMenu from "../components/TopMenu";
 
 export default function BookList() {
   const [data, setdata] = useState([]);
@@ -29,7 +29,6 @@ export default function BookList() {
       <div className="container body">
         <div className="main_container">
           <SideMenu />
-          <TopMenu />
 
           {/* <!-- page content --> */}
           <div className="right_col" role="main">
@@ -43,7 +42,6 @@ export default function BookList() {
                   <div
                     className="alert alert-success alert-dismissible fade in"
                     role="alert"
-                    // th:if="${bookInUse}"
                   >
                     <button
                       type="button"
@@ -70,27 +68,16 @@ export default function BookList() {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* <tr th:each="b : ${books}">
-                        <td th:text="${b.category.name}"></td>
-                        <td th:text="${b.tag}"></td>
-                        <td th:text="${b.title}"></td>
-                        <td th:text="${b.authors}"></td>
-                        <td>
-                          <a th:href="@{'/book/edit/' + ${b.id}}">
-                            <i className="fa fa-edit"></i>
-                          </a>
-                          <a
-                            data-toggle="modal"
-                            data-target=".remove-book-modal"
-                            onClick="removeBookDialog(this);"
-                            th:data-book-id="${b.id}"
-                            th:data-book-name="${b.title}"
-                            style="cursor: pointer;"
-                          >
-                            <i className="fa fa-remove"></i>
-                          </a>
-                        </td>
-                      </tr> */}
+                      {data?.length > 0 &&
+                        data.map((book, idx) => (
+                          <BookListItem key={idx.toString()} book={book} />
+                        ))}
+
+                      {data?.length === 0 && (
+                        <tr>
+                          <td>No books.</td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -138,7 +125,7 @@ export default function BookList() {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick="removeBook();"
+                    // onClick="removeBook();"F
                   >
                     Yes!
                   </button>

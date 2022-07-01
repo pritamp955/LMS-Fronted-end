@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 
 export default function SideMenu() {
-  
+  const [showcategory, setshowcategory] = useState(false);
+
   return (
     <div className="col-md-3 left_col">
       <div className="left_col scroll-view">
@@ -43,20 +44,16 @@ export default function SideMenu() {
                   </li>
                 </ul>
               </li>
+
               <li>
-                <a>
+                <a onClick={() => setshowcategory((cur) => !cur)}>
                   <i className="fa fa-sitemap"></i> Categories{" "}
                   <span className="fa fa-chevron-down"></span>
                 </a>
-                <ul className="nav child_menu">
-                  <li>
-                    <a href="/category/add">Add New</a>
-                  </li>
-                  <li>
-                    <a href="/category/list">List</a>
-                  </li>
-                </ul>
+                
+                <Submenu show={showcategory} viewFor="category" />
               </li>
+
               <li>
                 <a>
                   <i className="fa fa-book"></i> Books{" "}
@@ -93,3 +90,18 @@ export default function SideMenu() {
     </div>
   );
 }
+
+const Submenu = ({ show, viewFor }) => {
+  if (!show) return null;
+
+  return (
+    <ul className="nav" style={{ display: "flex", flexDirection: "column" }}>
+      <li>
+        <a href={`/${viewFor}/add`}>Add New</a>
+      </li>
+      <li>
+        <a href={`/${viewFor}/list`}>List</a>
+      </li>
+    </ul>
+  );
+};
